@@ -1,17 +1,30 @@
-import {NgModule} from '@angular/core'
+import {ApplicationRef, DoBootstrap, Injector, NgModule} from '@angular/core'
 import {BrowserModule} from '@angular/platform-browser'
 
-import {AppComponent} from './app.component'
+import {createCustomElement} from '@angular/elements'
+import {VoteWidgetComponent} from './component/vote-widget/vote-widget.component'
 
 @NgModule({
   declarations: [
-    AppComponent
+    VoteWidgetComponent
   ],
   imports: [
     BrowserModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  entryComponents: [
+    VoteWidgetComponent
+  ]
 })
-export class AppModule {
+export class AppModule implements DoBootstrap {
+
+  constructor(private injector: Injector) {
+  }
+
+  ngDoBootstrap(appRef: ApplicationRef) {
+    const el = createCustomElement(VoteWidgetComponent, {
+      injector: this.injector
+    })
+    customElements.define('gh-vote', el)
+  }
+
 }
