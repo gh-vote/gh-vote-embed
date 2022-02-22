@@ -5,6 +5,7 @@ import {UserProvider} from '../../provider/user.provider'
 import {Observable} from 'rxjs'
 import {TokenProvider} from '../../provider/token.provider'
 import {LoadingProvider} from '../../provider/loading.provider'
+import {GithubApiService} from '../../service/github-api.service'
 
 @Component({
   selector: 'gh-vote',
@@ -20,15 +21,18 @@ export class VoteWidgetComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private githubApiService: GithubApiService,
     private tokenProvider: TokenProvider,
     public userProvider: UserProvider,
     public loadingProvider: LoadingProvider
-) {
+  ) {
     this.user = this.userProvider.user.observable
     this.loading = this.loadingProvider.loading.observable
   }
 
   ngOnInit(): void {
+    this.githubApiService.discussion('ivanjermakov', 'blog', 'D_kwDOGyNZG84AO2Pc')
+      .subscribe(console.log)
   }
 
   // TODO: remove session url param after login

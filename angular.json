@@ -33,7 +33,11 @@
             "styles": [
               "src/styles.sass"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "before-after-hook",
+              "once"
+            ]
           },
           "configurations": {
             "production": {
