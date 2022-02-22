@@ -5,13 +5,13 @@ import {tap} from 'rxjs'
 @Injectable({
   providedIn: 'root'
 })
-export class SessionProvider {
+export class LoadingProvider {
 
-  session: ObservableData<string> = new ObservableData<string>()
+  loading: ObservableData<boolean> = new ObservableData<boolean>({initialValue: true})
 
   constructor() {
-    this.session.observable
-      .pipe(tap(console.debug))
+    this.loading.observable
+      .pipe(tap(l => console.debug('loading', l)))
       .subscribe()
   }
 
