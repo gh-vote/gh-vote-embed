@@ -3,8 +3,10 @@ import {BrowserModule} from '@angular/platform-browser'
 
 import {createCustomElement} from '@angular/elements'
 import {VoteWidgetComponent} from './component/vote-widget/vote-widget.component'
-import {AuthHttpInterceptor, AuthModule} from '@auth0/auth0-angular'
-import {HTTP_INTERCEPTORS} from '@angular/common/http'
+import {HttpClientModule} from '@angular/common/http'
+import {SessionProvider} from './provider/session.provider'
+import {ActivatedRoute, RouterModule} from '@angular/router'
+import {APP_BASE_HREF} from '@angular/common'
 
 @NgModule({
   declarations: [
@@ -12,19 +14,11 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http'
   ],
   imports: [
     BrowserModule,
-    AuthModule.forRoot({
-      domain: 'https://github.com/login/oauth',
-      clientId: 'Iv1.946ad5067422a7b2',
-      redirectUri: window.location.origin,
-      httpInterceptor: {
-        allowedList: [
-          '/api/*'
-        ]
-      }
-    }),
+    HttpClientModule,
+    RouterModule.forRoot([])
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true},
+    {provide: APP_BASE_HREF, useValue: '/'}
   ],
   entryComponents: [
     VoteWidgetComponent
@@ -32,7 +26,22 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http'
 })
 export class AppModule implements DoBootstrap {
 
-  constructor(private injector: Injector) {
+  constructor(
+    private injector: Injector,
+    private sessionProvider: SessionProvider,
+    private route: ActivatedRoute
+  ) {
+    const a = decodeURIComponent(window.location.search)
+      .replace('?', '')
+      .split('&')
+      .map(param => param.split('='))
+      .reduce((values: any, [key, value]) => {
+        values[key] = value
+        return values
+      }, {})
+    if (a['session']) {
+      this.sessionProvider.session.set(a['session'])
+    }
   }
 
   ngDoBootstrap(appRef: ApplicationRef) {

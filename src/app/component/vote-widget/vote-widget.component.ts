@@ -1,6 +1,6 @@
-import {ChangeDetectorRef, Component, OnInit, ViewEncapsulation} from '@angular/core'
-import {DomSanitizer} from '@angular/platform-browser'
-import {AuthService} from '@auth0/auth0-angular'
+import {Component, OnInit, ViewEncapsulation} from '@angular/core'
+import {AuthService} from '../../service/auth.service'
+import {TokenProvider} from '../../provider/token.provider'
 
 @Component({
   selector: 'gh-vote',
@@ -11,9 +11,8 @@ import {AuthService} from '@auth0/auth0-angular'
 export class VoteWidgetComponent implements OnInit {
 
   constructor(
-    private ref: ChangeDetectorRef,
-    private sanitizer: DomSanitizer,
-    public auth: AuthService,
+    private authService: AuthService,
+    public tokenProvider: TokenProvider
   ) {
   }
 
@@ -21,12 +20,13 @@ export class VoteWidgetComponent implements OnInit {
   }
 
   loginWithRedirect(): void {
-    this.auth.loginWithRedirect()
+    this.authService.authorize('Iv1.946ad5067422a7b2').subscribe(r => {
+      console.log(r)
+      window.open(r.url, '_self')
+    })
   }
 
   logout(): void {
-    // Call this to log the user out of the application
-    this.auth.logout({ returnTo: window.location.origin });
   }
 
 }
