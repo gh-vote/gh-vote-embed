@@ -1,9 +1,9 @@
 <div class="poll">
-  <p>You voted? {{poll.viewerVoted}}</p>
-  <h2>{{poll.title}}</h2>
-  <div class="option" *ngFor="let option of poll.options | keyvalue">
-    <p>{{option.value.body}}</p>
-    <p>{{option.value.voteCount}}</p>
-    <p>{{option.value.viewerVoted}}</p>
-  </div>
+  <h2 class="title">{{poll.title}}</h2>
+  <app-option
+    *ngFor="let option of options"
+    [option]="option"
+    [totalVotes]="poll.totalVotes"
+    [show]="true"
+  ></app-option>
 </div>

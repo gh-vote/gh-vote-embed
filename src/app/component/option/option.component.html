@@ -1,0 +1,9 @@
+<div class="option"
+     [ngClass]="{'viewerVoted': option.viewerVoted}"
+     [ngStyle]="option.viewerVoted
+     ? {'background': 'linear-gradient(90deg, var(--voted) ' + percentage() + '%, white ' + percentage() + '%)'}
+     : {'background': 'linear-gradient(90deg, var(--c1) ' + percentage() + '%, white ' + percentage() + '%)'}"
+>
+  <p class="body">{{option.body}}</p>
+  <p class="percentage" *ngIf="show">{{percentage()}}%</p>
+</div>

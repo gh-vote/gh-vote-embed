@@ -1,23 +1,21 @@
-<ng-container *ngIf="!loading || (loading | async)">
-  <p>loading...</p>
-</ng-container>
-<ng-container *ngIf="!(loading | async)">
-  <ng-container *ngIf="!(user | async)">
-    <button
-      (click)="loginWithRedirect()"
-    >
-      Log in
-    </button>
+<div class="gh-vote">
+  <ng-container *ngIf="!loading || (loading | async)">
+    <div class="loading">
+      <p>loading...</p>
+    </div>
   </ng-container>
-  <ng-container *ngIf="(user | async) && (poll | async)">
-    <p>Logged in as @{{(user | async).login}}</p>
-    <button
-      (click)="logout()"
-    >
-      Log out
-    </button>
-    <app-poll
-      [poll]="(poll | async)!"
-    ></app-poll>
+  <ng-container *ngIf="!(loading | async)">
+    <ng-container *ngIf="!(user | async)">
+      <button
+        (click)="loginWithRedirect()"
+      >
+        Log in
+      </button>
+    </ng-container>
+    <ng-container *ngIf="(user | async) && (poll | async)">
+      <app-poll
+        [poll]="(poll | async)!"
+      ></app-poll>
+    </ng-container>
   </ng-container>
-</ng-container>
+</div>

@@ -6,6 +6,7 @@ export interface Poll {
   options: { [emojiKey: string]: Option }
   category: Category
   viewerVoted: boolean
+  totalVotes: number
 }
 
 export interface Option {
@@ -49,6 +50,7 @@ export function parsePoll(response: any): Poll {
     title: response.title,
     options: options,
     category: response.category,
-    viewerVoted: Object.values(options).some(o => o.viewerVoted)
+    viewerVoted: Object.values(options).some(o => o.viewerVoted),
+    totalVotes: Object.values(options).map(o => o.voteCount).reduce((a, b) => a + b, 0)
   }
 }

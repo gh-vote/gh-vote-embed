@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core'
-import {Poll} from '../../model/poll'
+import {Option, Poll} from '../../model/poll'
 
 @Component({
   selector: 'app-poll',
@@ -11,10 +11,13 @@ export class PollComponent implements OnInit {
   @Input()
   poll!: Poll
 
+  options!: Option[]
+
   constructor() {
   }
 
   ngOnInit(): void {
+    this.options = Object.values(this.poll.options)
   }
 
 }

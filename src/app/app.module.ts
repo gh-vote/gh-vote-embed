@@ -6,13 +6,15 @@ import {VoteWidgetComponent} from './component/vote-widget/vote-widget.component
 import {HttpClientModule} from '@angular/common/http'
 import {SessionProvider} from './provider/session.provider'
 import {ActivatedRoute, RouterModule} from '@angular/router'
-import {APP_BASE_HREF} from '@angular/common';
-import { PollComponent } from './component/poll/poll.component'
+import {APP_BASE_HREF} from '@angular/common'
+import {PollComponent} from './component/poll/poll.component'
+import {OptionComponent} from './component/option/option.component'
 
 @NgModule({
   declarations: [
     VoteWidgetComponent,
-    PollComponent
+    PollComponent,
+    OptionComponent
   ],
   imports: [
     BrowserModule,
