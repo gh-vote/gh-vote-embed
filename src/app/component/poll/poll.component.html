@@ -1,5 +1,8 @@
 <div class="poll">
-  <h2 class="title">{{poll.title}}</h2>
+  <header>
+    <h2 class="title">{{poll.title}}</h2>
+    <a class="menu"><i class="fa-solid fa-ellipsis"></i></a>
+  </header>
   <app-option
     *ngFor="let option of options"
     [option]="option"

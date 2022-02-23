@@ -13,7 +13,7 @@ import {Poll} from '../../model/poll'
 @Component({
   selector: 'gh-vote',
   templateUrl: './vote-widget.component.html',
-  styleUrls: ['./vote-widget.component.sass'],
+  styleUrls: ['./vote-widget.component.sass', '../../style/font-awesome.sass'],
   encapsulation: ViewEncapsulation.ShadowDom
 })
 export class VoteWidgetComponent implements OnInit {
