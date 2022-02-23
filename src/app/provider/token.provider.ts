@@ -30,7 +30,7 @@ export class TokenProvider {
     this.token.observable
       .pipe(
         tap(t => TokenProvider.updateLocalStorage(t)),
-        tap(t => console.debug('token', t)),
+        tap(t => console.debug({token: t})),
         tap(t => !t && this.loadingProvider.loading.set(false))
       )
       .subscribe()

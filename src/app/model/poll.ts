@@ -3,9 +3,16 @@ import {reactionMap} from './reaction-map'
 export interface Poll {
   discussionId: string
   title: string
-  options: { [emojiKey: string]: string }
-  votes: { [emojiKey: string]: number }
+  options: { [emojiKey: string]: Option }
   category: Category
+  viewerVoted: boolean
+}
+
+export interface Option {
+  key: string
+  body: string
+  voteCount: number
+  viewerVoted: boolean
 }
 
 export interface Category {
@@ -13,23 +20,35 @@ export interface Category {
   name: string
 }
 
-function parseOptions(body: string): { [emojiKey: string]: string } {
-  return Object.fromEntries(body
-    .split(/\n/)
-    .map(o => {
-      const ws = o.split(' ')
-      const emoji = reactionMap.get(ws[0])
-      const text = ws.slice(1).join(' ').trim()
-      return [emoji, text]
-    }))
+function parseOptions(response: any): { [emojiKey: string]: Option } {
+  const voteMap = Object.fromEntries(response.reactionGroups.map((e: any) => [e.content, {
+    count: e.reactors.totalCount,
+    voted: e.viewerHasReacted
+  }]))
+  return Object.fromEntries(
+    (response.body as string)
+      .split(/\n/)
+      .map(o => {
+        const ws = o.split(' ')
+        const emojiKey = reactionMap.get(ws[0])!
+        const oBody = ws.slice(1).join(' ').trim()
+        return [emojiKey, {
+          key: emojiKey,
+          body: oBody,
+          voteCount: voteMap[emojiKey].count,
+          viewerVoted: voteMap[emojiKey].voted
+        }]
+      })
+  )
 }
 
 export function parsePoll(response: any): Poll {
+  const options = parseOptions(response)
   return {
     discussionId: response.id,
     title: response.title,
-    options: parseOptions(response.body),
-    votes: Object.fromEntries(response.reactionGroups.map((e: any) => [e.content, e.reactors.totalCount])),
-    category: response.category
+    options: options,
+    category: response.category,
+    viewerVoted: Object.values(options).some(o => o.viewerVoted)
   }
 }

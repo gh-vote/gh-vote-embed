@@ -11,7 +11,7 @@ export class LoadingProvider {
 
   constructor() {
     this.loading.observable
-      .pipe(tap(l => console.debug('loading', l)))
+      .pipe(tap(loading => console.debug({loading})))
       .subscribe()
   }
 

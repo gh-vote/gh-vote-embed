@@ -24,13 +24,12 @@ export class UserProvider {
         map(t => new Octokit({auth: t}).rest.users.getAuthenticated()),
         mergeMap(r => from(r)),
         map(r => r.data),
-        tap(u => this.user.set(u)),
-        tap(() => this.loadingProvider.loading.set(false)),
+        tap(u => this.user.set(u))
       )
       .subscribe()
 
     this.user.observable
-      .pipe(tap(u => console.debug('user', u)))
+      .pipe(tap(u => console.debug({user: u})))
       .subscribe()
   }
 

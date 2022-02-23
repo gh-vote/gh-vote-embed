@@ -11,7 +11,7 @@ export class SessionProvider {
 
   constructor() {
     this.session.observable
-      .pipe(tap(console.debug))
+      .pipe(tap(session => console.debug({session})))
       .subscribe()
   }
 

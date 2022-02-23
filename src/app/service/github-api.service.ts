@@ -24,29 +24,30 @@ export class GithubApiService {
     return this.octokit?.graphql(query)!
   }
 
-  discussion(owner: string, repository: string, discussionId: string): Observable<Poll> {
+  poll(owner: string, repository: string, discussionId: string): Observable<Poll> {
     return from(this.graphql(`
-query {
-  repository(name: "${repository}", owner: "${owner}") {
-    discussions(first: 100) {
-      nodes {
-        id
-        title
-        body
-        category {
-          id
-          name
-        }
-        reactionGroups {
-          content
-          reactors {
-            totalCount
+      query {
+        repository(name: "${repository}", owner: "${owner}") {
+          discussions(first: 100) {
+            nodes {
+              id
+              title
+              body
+              category {
+                id
+                name
+              }
+              reactionGroups {
+                content
+                viewerHasReacted
+                reactors {
+                  totalCount
+                }
+              }
+            }
           }
         }
       }
-    }
-  }
-}
     `))
       .pipe(
         map(r => r.repository.discussions.nodes.filter((d: any) => d.id === discussionId)[0]),
