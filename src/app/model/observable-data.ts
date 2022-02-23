@@ -52,7 +52,7 @@ export class ObservableData<T> {
    * Resend last emitted value
    */
   update(map?: (value: T) => T): void {
-    this.observable
+    this.subject.asObservable()
       .pipe(first())
       .subscribe(value => {
         this.subject.next(map ? map(value) : value)

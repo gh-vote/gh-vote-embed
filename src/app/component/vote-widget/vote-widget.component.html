@@ -4,18 +4,18 @@
       <p>loading...</p>
     </div>
   </ng-container>
-  <ng-container *ngIf="!(loading | async)">
-    <ng-container *ngIf="!(user | async)">
-      <a (click)="loginWithRedirect()"
-         id="github-button" class="btn btn-block btn-social btn-github">
-        Sign in <i class="fa-brands fa-github"></i>
-      </a>
-    </ng-container>
-
-    <ng-container *ngIf="(user | async) && (poll | async)">
-      <app-poll
-        [poll]="(poll | async)!"
-      ></app-poll>
-    </ng-container>
+  <ng-container *ngIf="!(user | async)">
+    <a (click)="loginWithRedirect()"
+       id="github-button" class="btn btn-block btn-social btn-github">
+      Sign in <i class="fa-brands fa-github"></i>
+    </a>
+  </ng-container>
+  <ng-container *ngIf="poll | async">
+    <app-poll
+      [poll]="(poll | async)!"
+    ></app-poll>
+  </ng-container>
+  <ng-container *ngIf="!(poll | async)">
+    <p>loading poll...</p>
   </ng-container>
 </div>

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core'
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import {Option, Poll} from '../../model/poll'
 
 @Component({
@@ -6,7 +6,7 @@ import {Option, Poll} from '../../model/poll'
   templateUrl: './poll.component.html',
   styleUrls: ['./poll.component.sass']
 })
-export class PollComponent implements OnInit {
+export class PollComponent implements OnInit, OnChanges {
 
   @Input()
   poll!: Poll
@@ -17,6 +17,9 @@ export class PollComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.options = Object.values(this.poll.options)
   }
 
