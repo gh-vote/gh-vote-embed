@@ -1,3 +1,3 @@
 # gh-vote
 
-Poll system for your website through GitHub discussions
+gh-vote embeddable app
