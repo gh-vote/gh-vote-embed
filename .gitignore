@@ -1,6 +1,6 @@
 node_modules
 .angular
-dist/gh-vote
+dist/gh-vote-embed
 .idea
 *.iml
 package-lock.json
