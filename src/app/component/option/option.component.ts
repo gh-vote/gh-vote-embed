@@ -4,7 +4,7 @@ import {Option} from '../../model/poll'
 @Component({
   selector: 'app-option',
   templateUrl: './option.component.html',
-  styleUrls: ['./option.component.sass']
+  styleUrls: ['./option.component.sass', '../../style/global.sass']
 })
 export class OptionComponent implements OnInit {
 

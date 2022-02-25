@@ -15,7 +15,7 @@ import {User} from '../../model/user'
 @Component({
   selector: 'app-poll',
   templateUrl: './poll.component.html',
-  styleUrls: ['./poll.component.sass']
+  styleUrls: ['./poll.component.sass', '../../style/global.sass']
 })
 export class PollComponent implements OnInit, OnChanges {
 
