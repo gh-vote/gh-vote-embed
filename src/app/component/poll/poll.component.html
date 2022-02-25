@@ -1,12 +1,26 @@
 <div class="poll">
   <header>
     <h2 class="title">{{poll.title}}</h2>
-    <a class="menu"><i class="fa-solid fa-ellipsis"></i></a>
   </header>
   <app-option
-    *ngFor="let option of options"
-    [option]="option"
+    *ngFor="let option of options; let i = index"
+    [(option)]="options[i]"
+    [index]="i"
     [totalVotes]="poll.totalVotes"
-    [show]="true"
+    [show]="poll.viewerVoted || config.showResultsImmediately"
+    [enabled]="!!user"
   ></app-option>
+  <div class="menu">
+    <p class="total">Total votes: {{poll.totalVotes}}</p>
+    <i class="fa-solid fa-ellipsis"></i>
+    <ng-container *ngIf="user">
+      <button type="submit" (click)="vote()">Vote</button>
+    </ng-container>
+    <ng-container *ngIf="!(user)">
+      <button type="submit" (click)="loginWithRedirect()"
+              class="btn btn-block btn-social btn-github">
+        Sign in<i class="fa-brands fa-github"></i>
+      </button>
+    </ng-container>
+  </div>
 </div>

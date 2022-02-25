@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core'
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
 import {Option} from '../../model/poll'
 
 @Component({
@@ -12,10 +12,19 @@ export class OptionComponent implements OnInit {
   option!: Option
 
   @Input()
+  index!: number
+
+  @Output()
+  optionChange: EventEmitter<Option> = new EventEmitter<Option>()
+
+  @Input()
   totalVotes!: number
 
   @Input()
   show: boolean = false
+
+  @Input()
+  enabled: boolean = false
 
   constructor() {
   }

@@ -13,7 +13,7 @@ import {Poll} from '../../model/poll'
 @Component({
   selector: 'gh-vote',
   templateUrl: './vote-widget.component.html',
-  styleUrls: ['./vote-widget.component.sass', '../../style/font-awesome.sass'],
+  styleUrls: ['./vote-widget.component.sass'],
   encapsulation: ViewEncapsulation.ShadowDom
 })
 export class VoteWidgetComponent implements OnInit {
@@ -27,21 +27,23 @@ export class VoteWidgetComponent implements OnInit {
   @Input()
   discussionId!: string
 
+  @Input()
+  showResultsImmediately: boolean = false
+
   octokit?: Octokit
   user?: Observable<any>
   loading?: Observable<boolean>
   poll?: Observable<Poll>
 
   constructor(
+    public configProvider: ConfigProvider,
     private authService: AuthService,
     private githubApiService: GithubApiService,
     private tokenProvider: TokenProvider,
     private userProvider: UserProvider,
     private loadingProvider: LoadingProvider,
-    private configProvider: ConfigProvider,
     private pollProvider: PollProvider
   ) {
-    this.user = this.userProvider.user.observable
     this.loading = this.loadingProvider.loading.observable
     this.poll = this.pollProvider.poll.observable
   }
@@ -50,21 +52,10 @@ export class VoteWidgetComponent implements OnInit {
     const config = {
       owner: this.owner,
       repo: this.repo,
-      discussionId: this.discussionId
+      discussionId: this.discussionId,
+      showResultsImmediately: this.showResultsImmediately
     }
     this.configProvider.config.set(config)
-  }
-
-  // TODO: remove session url param after login
-  loginWithRedirect(): void {
-    this.authService.authorize('Iv1.946ad5067422a7b2').subscribe(r => {
-      window.open(r.url, '_self')
-    })
-  }
-
-  logout(): void {
-    this.tokenProvider.token.set(undefined as any)
-    this.userProvider.user.set(undefined as any)
   }
 
 }

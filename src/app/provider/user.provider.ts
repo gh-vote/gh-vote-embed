@@ -24,6 +24,11 @@ export class UserProvider {
         map(t => new Octokit({auth: t}).rest.users.getAuthenticated()),
         mergeMap(r => from(r)),
         map(r => r.data),
+        map(d => ({
+          id: d.id,
+          login: d.login,
+          avatarUrl: d.avatar_url,
+        })),
         tap(u => this.user.set(u))
       )
       .subscribe()

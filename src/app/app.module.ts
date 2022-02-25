@@ -9,6 +9,7 @@ import {ActivatedRoute, RouterModule} from '@angular/router'
 import {APP_BASE_HREF} from '@angular/common'
 import {PollComponent} from './component/poll/poll.component'
 import {OptionComponent} from './component/option/option.component'
+import {FormsModule} from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {OptionComponent} from './component/option/option.component'
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
     RouterModule.forRoot([])
   ],
   providers: [

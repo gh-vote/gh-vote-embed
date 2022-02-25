@@ -1,20 +1,40 @@
+@import "../../style/global"
+
 .option
   position: relative
-  display: flex
-  justify-content: space-between
+  display: grid
+  grid-template-columns: auto 1fr auto
   align-items: center
-  padding: 1em
-  border: 1px solid var(--border)
+  grid-gap: .5em
   border-radius: 1em
 
   *
     margin: 0
 
-  &.viewerVoted
-    font-weight: 500
+  .check
+    grid-column: 1/2
+    grid-row: 1/2
+    zoom: 1.5
 
   .body
-    z-index: 1
+    grid-column: 2/3
+    grid-row: 1/2
+    font-weight: 500
 
   .percentage
-    z-index: 1
+    grid-column: 3/4
+    grid-row: 1/2
+    font-weight: 500
+
+  .indicator
+    grid-column: 1/4
+    grid-row: 2/3
+
+    height: .5em
+    background: var(--c1)
+    border-radius: .25em
+
+    &.empty
+      width: 100%
+      background: var(--bg-2)
+
