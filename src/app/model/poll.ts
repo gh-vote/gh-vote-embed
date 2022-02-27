@@ -1,4 +1,4 @@
-import {reactionMap} from './reaction-map'
+import {fromEmoji, Reaction} from './reaction'
 
 export interface Poll {
   discussionId: string
@@ -10,7 +10,7 @@ export interface Poll {
 }
 
 export interface Option {
-  key: string
+  key: Reaction
   body: string
   voteCount: number
   viewerVoted: boolean
@@ -22,7 +22,7 @@ export interface Category {
 }
 
 function parseOptions(response: any): { [emojiKey: string]: Option } {
-  const voteMap = Object.fromEntries(response.reactionGroups.map((e: any) => [e.content, {
+  const voteMap = Object.fromEntries(response.reactionGroups.map((e: any) => [Reaction[e.content], {
     count: e.reactors.totalCount,
     voted: e.viewerHasReacted
   }]))
@@ -31,7 +31,7 @@ function parseOptions(response: any): { [emojiKey: string]: Option } {
       .split(/\n/)
       .map(o => {
         const ws = o.split(' ')
-        const emojiKey = reactionMap.get(ws[0])!
+        const emojiKey = fromEmoji(ws[0])!
         const oBody = ws.slice(1).join(' ').trim()
         return [emojiKey, {
           key: emojiKey,

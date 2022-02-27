@@ -33,7 +33,7 @@ export class OptionComponent implements OnInit {
   }
 
   percentage(): number {
-    return this.option.voteCount * 100 / this.totalVotes
+    return Math.round(this.option.voteCount * 100 / this.totalVotes)
   }
 
 }

@@ -32,6 +32,7 @@ export class PollProvider {
 
     this.tokenProvider.token.observable
       .pipe(
+        tap(() => 'new token'),
         filter(t => !!t),
         zipWith(this.configProvider.config.observable),
         mergeMap(([, config]) => this.githubApiService.poll(config.owner, config.repo, config.discussionId)),

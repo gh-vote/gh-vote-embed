@@ -9,6 +9,7 @@ import {UserProvider} from '../../provider/user.provider'
 import {LoadingProvider} from '../../provider/loading.provider'
 import {PollProvider} from '../../provider/poll.provider'
 import {User} from '../../model/user'
+import {tap} from 'rxjs'
 
 // TODO: action menu
 // TODO: skeleton on loading
@@ -60,7 +61,13 @@ export class PollComponent implements OnInit, OnChanges {
   }
 
   vote() {
-    console.log(Object.values(this.poll.options).filter(o => o.viewerVoted))
+    const addVotes = Object.values(this.poll.options).filter(o => o.viewerVoted).map(o => o.key)
+    const removeVotes = Object.values(this.poll.options).filter(o => !o.viewerVoted).map(o => o.key)
+    this.githubApiService.setReactions(this.user!, this.poll, addVotes, removeVotes)
+      .pipe(
+        tap(() => this.tokenProvider.token.update())
+      )
+      .subscribe()
   }
 
 }
