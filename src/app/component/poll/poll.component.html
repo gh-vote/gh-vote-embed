@@ -2,14 +2,16 @@
   <header>
     <h2 class="title">{{poll.title}}</h2>
   </header>
-  <app-option
-    *ngFor="let option of options; let i = index"
-    [(option)]="options[i]"
-    [index]="i"
-    [totalVotes]="poll.totalVotes"
-    [show]="poll.viewerVoted || config.showResultsImmediately"
-    [enabled]="!!user"
-  ></app-option>
+  <div class="options">
+    <app-option
+      *ngFor="let option of options; let i = index"
+      [(option)]="options[i]"
+      [index]="i"
+      [totalVotes]="poll.totalVotes"
+      [show]="poll.viewerVoted"
+      [enabled]="!!user"
+    ></app-option>
+  </div>
   <div class="menu">
     <p class="total">Total votes: {{poll.totalVotes}}</p>
     <i class="fa-solid fa-ellipsis"></i>

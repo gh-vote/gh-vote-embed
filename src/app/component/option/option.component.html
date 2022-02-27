@@ -1,14 +1,17 @@
-<div class="option" [title]="option.body + ': ' + option.voteCount + ' vote' + (option.voteCount === 1 ? '' : 's')">
+<div class="option"
+     [title]="option.body + ': ' + option.voteCount + ' vote' + (option.voteCount === 1 ? '' : 's')"
+>
   <input class="check" type="checkbox"
          [(ngModel)]="option.viewerVoted"
          (change)="optionChange.emit(option)"
          [disabled]="!enabled"
          [title]="enabled ? 'Vote' : 'Sign in to vote'">
   <p class="body">{{option.body}}</p>
-  <p class="percentage" *ngIf="show">{{percentage()}}%</p>
-  <div class="indicator empty" *ngIf="show"></div>
-  <div class="indicator"
-       *ngIf="show"
-       [ngStyle]="{'width': percentage() + '%', 'background': 'var(--c' + (index + 1) + ')'}"
-  ></div>
+  <div [ngClass]="{'indicator': true, 'empty': show, 'hidden': !show}"></div>
+  <ng-container *ngIf="show">
+    <p class="percentage">{{percentage()}}%</p>
+    <div class="indicator"
+         [ngStyle]="{'width': percentage() + '%', 'background': 'var(--c' + (index + 1) + ')'}"
+    ></div>
+  </ng-container>
 </div>
