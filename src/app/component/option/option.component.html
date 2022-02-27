@@ -8,7 +8,7 @@
   <p class="percentage" *ngIf="show">{{percentage()}}%</p>
   <div class="indicator empty" *ngIf="show"></div>
   <div class="indicator"
-       *ngIf="show && percentage() !== 0"
+       *ngIf="show"
        [ngStyle]="{'width': percentage() + '%', 'background': 'var(--c' + (index + 1) + ')'}"
   ></div>
 </div>

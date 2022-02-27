@@ -14,7 +14,12 @@
     <p class="total">Total votes: {{poll.totalVotes}}</p>
     <i class="fa-solid fa-ellipsis"></i>
     <ng-container *ngIf="user">
-      <button type="submit" (click)="vote()">Vote</button>
+      <button type="submit" (click)="vote()">
+        <ng-container *ngIf="!loading">Vote</ng-container>
+        <ng-container *ngIf="loading">
+          <i class="fas fa-circle-notch fa-spin"></i>
+        </ng-container>
+      </button>
     </ng-container>
     <ng-container *ngIf="!(user)">
       <button type="submit" (click)="loginWithRedirect()"

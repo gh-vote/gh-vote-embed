@@ -24,6 +24,7 @@ export class PollComponent implements OnInit, OnChanges {
   config!: Config
   user?: User
   options!: Option[]
+  loading: boolean = true
 
   constructor(
     private configProvider: ConfigProvider,
@@ -40,6 +41,7 @@ export class PollComponent implements OnInit, OnChanges {
     })
     this.configProvider.config.observable.subscribe(c => this.config = c)
     this.userProvider.user.observable.subscribe(u => this.user = u)
+    this.pollProvider.loading.observable.subscribe(l => this.loading = l)
   }
 
   ngOnInit(): void {
@@ -63,6 +65,7 @@ export class PollComponent implements OnInit, OnChanges {
   vote() {
     const addVotes = Object.values(this.poll.options).filter(o => o.viewerVoted).map(o => o.key)
     const removeVotes = Object.values(this.poll.options).filter(o => !o.viewerVoted).map(o => o.key)
+    this.pollProvider.loading.set(true)
     this.githubApiService.setReactions(this.user!, this.poll, addVotes, removeVotes)
       .pipe(
         tap(() => this.tokenProvider.token.update())

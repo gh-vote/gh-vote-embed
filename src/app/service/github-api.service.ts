@@ -30,7 +30,7 @@ export class GithubApiService {
       catchError((err: any) => {
         // some error happening even if response is 2xx and response data is lost...
         if (err.name === 'GraphqlResponseError') {
-          console.log(err)
+          console.warn(err)
           return of(undefined)
         }
         throw err
