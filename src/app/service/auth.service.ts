@@ -21,7 +21,6 @@ export class AuthService {
     })
   }
 
-
   token(session: string): Observable<Token> {
     return this.http.post<Token>(API_URL + '/token', {
       session: session

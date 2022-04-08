@@ -1,8 +1,8 @@
 <div class="gh-vote">
-  <ng-container *ngIf="poll | async">
+  <ng-container *ngIf="poll">
     <app-poll></app-poll>
   </ng-container>
-  <ng-container *ngIf="!(poll | async)">
+  <ng-container *ngIf="!poll">
     <p>loading poll...</p>
   </ng-container>
 </div>

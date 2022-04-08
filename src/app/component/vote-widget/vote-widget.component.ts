@@ -1,8 +1,6 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core'
 import {AuthService} from '../../service/auth.service'
-import {Octokit} from '@octokit/rest'
 import {UserProvider} from '../../provider/user.provider'
-import {Observable} from 'rxjs'
 import {TokenProvider} from '../../provider/token.provider'
 import {LoadingProvider} from '../../provider/loading.provider'
 import {GithubApiService} from '../../service/github-api.service'
@@ -30,10 +28,11 @@ export class VoteWidgetComponent implements OnInit {
   @Input()
   showResultsImmediately: boolean = false
 
-  octokit?: Octokit
-  user?: Observable<any>
-  loading?: Observable<boolean>
-  poll?: Observable<Poll>
+  @Input()
+  multiChoice: boolean = false
+
+  loading: boolean = false
+  poll?: Poll
 
   constructor(
     public configProvider: ConfigProvider,
@@ -44,8 +43,8 @@ export class VoteWidgetComponent implements OnInit {
     private loadingProvider: LoadingProvider,
     private pollProvider: PollProvider
   ) {
-    this.loading = this.loadingProvider.loading.observable
-    this.poll = this.pollProvider.poll.observable
+    this.loadingProvider.loading.observable.subscribe(loading => this.loading = loading)
+    this.pollProvider.poll.observable.subscribe(poll => this.poll = poll)
   }
 
   ngOnInit(): void {
@@ -53,7 +52,8 @@ export class VoteWidgetComponent implements OnInit {
       owner: this.owner,
       repo: this.repo,
       discussionId: this.discussionId,
-      showResultsImmediately: this.showResultsImmediately
+      showResultsImmediately: this.showResultsImmediately,
+      multiChoice: this.multiChoice
     }
     this.configProvider.config.set(config)
   }

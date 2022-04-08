@@ -8,10 +8,9 @@
          [title]="enabled ? 'Vote' : 'Sign in to vote'">
   <p class="body">{{option.body}}</p>
   <div [ngClass]="{'indicator': true, 'empty': show, 'hidden': !show}"></div>
-  <ng-container *ngIf="show">
-    <p class="percentage">{{percentage()}}%</p>
-    <div class="indicator"
-         [ngStyle]="{'width': percentage() + '%', 'background': 'var(--c' + (index + 1) + ')'}"
-    ></div>
-  </ng-container>
+  <p *ngIf="show" class="percentage">{{percentage()}}%</p>
+  <div class="indicator"
+       [ngStyle]="{'width': show ? percentage() + '%' : '0', 'background': 'var(--c' + (index + 1) + ')'}"
+       [@bar]="!!show ? 'shown': 'hidden'"
+  ></div>
 </div>

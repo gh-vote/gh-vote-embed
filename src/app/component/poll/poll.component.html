@@ -1,14 +1,15 @@
-<div class="poll">
+<div class="poll" *ngIf="poll">
   <header>
     <h2 class="title">{{poll.title}}</h2>
   </header>
   <div class="options">
     <app-option
       *ngFor="let option of options; let i = index"
-      [(option)]="options[i]"
+      [option]="options[i]"
+      (optionChange)="optionChanged($event, i)"
       [index]="i"
       [totalVotes]="poll.totalVotes"
-      [show]="poll.viewerVoted"
+      [show]="poll.viewerVoted || config.showResultsImmediately"
       [enabled]="!!user"
     ></app-option>
   </div>

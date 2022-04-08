@@ -10,6 +10,7 @@ import {APP_BASE_HREF} from '@angular/common'
 import {PollComponent} from './component/poll/poll.component'
 import {OptionComponent} from './component/option/option.component'
 import {FormsModule} from '@angular/forms'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {FormsModule} from '@angular/forms'
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot([])
+    RouterModule.forRoot([]),
+    BrowserAnimationsModule
   ],
   providers: [
     {provide: APP_BASE_HREF, useValue: '/'}

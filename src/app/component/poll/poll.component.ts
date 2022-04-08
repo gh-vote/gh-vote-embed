@@ -35,6 +35,9 @@ export class PollComponent implements OnInit, OnChanges {
     private loadingProvider: LoadingProvider,
     private pollProvider: PollProvider
   ) {
+  }
+
+  ngOnInit(): void {
     this.pollProvider.poll.observable.subscribe(p => {
       this.poll = p
       this.options = Object.values(p.options)
@@ -42,9 +45,6 @@ export class PollComponent implements OnInit, OnChanges {
     this.configProvider.config.observable.subscribe(c => this.config = c)
     this.userProvider.user.observable.subscribe(u => this.user = u)
     this.pollProvider.loading.observable.subscribe(l => this.loading = l)
-  }
-
-  ngOnInit(): void {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -71,6 +71,13 @@ export class PollComponent implements OnInit, OnChanges {
         tap(() => this.tokenProvider.token.update())
       )
       .subscribe()
+  }
+
+  optionChanged(option: Option, i: number) {
+    this.options[i] = option
+    if (!this.config.multiChoice) {
+      this.options.filter(o => o !== option).forEach(o => o.viewerVoted = false)
+    }
   }
 
 }
