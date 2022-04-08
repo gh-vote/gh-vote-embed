@@ -25,9 +25,12 @@
       </button>
     </ng-container>
     <ng-container *ngIf="!(user)">
-      <button type="submit" (click)="loginWithRedirect()"
-              class="btn btn-block btn-social btn-github">
-        Sign in<i class="fa-brands fa-github"></i>
+      <button
+        type="submit"
+        (click)="loginWithRedirect()"
+        class="btn btn-block btn-social btn-github"
+        title="Sign in to vote"
+      >Sign in<i class="fa-brands fa-github"></i>
       </button>
     </ng-container>
   </div>

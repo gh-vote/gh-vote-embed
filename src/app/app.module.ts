@@ -10,13 +10,15 @@ import {APP_BASE_HREF} from '@angular/common'
 import {PollComponent} from './component/poll/poll.component'
 import {OptionComponent} from './component/option/option.component'
 import {FormsModule} from '@angular/forms'
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { PollSkeletonComponent } from './component/poll-skeleton/poll-skeleton.component'
 
 @NgModule({
   declarations: [
     VoteWidgetComponent,
     PollComponent,
-    OptionComponent
+    OptionComponent,
+    PollSkeletonComponent
   ],
   imports: [
     BrowserModule,
