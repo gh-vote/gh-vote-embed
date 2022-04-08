@@ -28,6 +28,8 @@ function parseOptions(response: any): { [emojiKey: string]: Option } {
   }]))
   return Object.fromEntries(
     (response.body as string)
+      .replace(/\r\n/g, '\n')
+      .split(/\n\n/)[0]
       .split(/\n/)
       .map(o => {
         const ws = o.split(' ')
